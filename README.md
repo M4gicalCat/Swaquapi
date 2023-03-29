@@ -13,10 +13,15 @@ This is a simple API for the SWAQUA project. It is a REST API that allows you to
 
 ### Setup
 
-1.  Clone the repository
+1. `git clone https://github.com/M4gicalCat/swaquapi.git && cd swaquapi`
 2. Install the dependencies with `npm install`
-3. run `npm run start`
-4. The API is now running on `localhost:8000`
+3. `cd src/ && cp db.config.example.ts db.config.ts`
+4. Create a postgresql database
+5. Edit the `db.config.ts` file with your database credentials
+6. `cp secret.example.ts secret.ts`
+7. Edit the `secret.ts` file with your secret key
+8. run `npm run start`
+9. The API is now running on `localhost:8000`
 
 ## Usage
 
