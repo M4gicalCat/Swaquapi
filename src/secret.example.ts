@@ -1,0 +1,1 @@
+export const SECRET = 'LONG-ASS-STRING-TO-ENCODE-JWT';
