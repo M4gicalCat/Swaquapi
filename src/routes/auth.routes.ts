@@ -53,7 +53,7 @@ export const routes: Route[] = [
       }
 
       res.json({
-        ...swallower,
+        swallower,
         token: jwt.sign({ id: swallower.id }, SECRET, {
           expiresIn: '14d',
         }),
