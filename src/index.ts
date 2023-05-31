@@ -20,8 +20,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   db.any("SELECT 'echo toto' as echo")
     .then(data => {
-      console.log(data);
-      res.send(data);
+      res.json(data);
     })
     .catch(e => {
       res.status(500).send(e);
@@ -53,13 +52,13 @@ for (const route of routes) {
         } catch (e: any) {
           switch (true) {
             case e instanceof UnauthorizedError:
-              res.status(401).send({ message: e.message });
+              res.status(401).json({ message: e.message });
               break;
             case e instanceof BadRequestError:
-              res.status(400).send({ message: e.message });
+              res.status(400).json({ message: e.message });
               break;
             default:
-              res.status(500).send({ message: e.message });
+              res.status(500).json({ message: e.message });
           }
         }
       },

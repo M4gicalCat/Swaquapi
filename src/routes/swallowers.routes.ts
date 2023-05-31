@@ -9,7 +9,7 @@ export const routes: Route[] = [
     handler: async (req, res) => {
       const { id } = req.params;
       const swallowers = await db.any(getUserQuery, { id });
-      res.send(swallowers);
+      res.json(swallowers);
     },
   },
   {
@@ -18,7 +18,7 @@ export const routes: Route[] = [
     middlewares: [authMiddleware],
     handler: async (req, res) => {
       const swallower = await db.one(getUserQuery, { id: req.id });
-      res.send(swallower);
+      res.json(swallower);
     },
   },
   {
@@ -27,7 +27,7 @@ export const routes: Route[] = [
     middlewares: [authMiddleware],
     handler: async (req, res) => {
       await db.none('DELETE FROM swallower WHERE id = $[id]', { id: req.id });
-      res.send({ message: 'ok' });
+      res.json({ message: 'ok' });
     },
   },
 ];

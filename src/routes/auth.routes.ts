@@ -28,7 +28,7 @@ export const routes: Route[] = [
         throw new UnauthorizedError();
       }
       delete swallower.password;
-      res.send({
+      res.json({
         swallower,
         token: jwt.sign({ id: swallower.id }, SECRET, {
           expiresIn: '14d',
@@ -52,7 +52,7 @@ export const routes: Route[] = [
         throw new UnauthorizedError();
       }
 
-      res.send({
+      res.json({
         ...swallower,
         token: jwt.sign({ id: swallower.id }, SECRET, {
           expiresIn: '14d',
@@ -73,7 +73,7 @@ export const routes: Route[] = [
         'INSERT INTO swallower (username, password) VALUES ($[name], $[password]) RETURNING username, id',
         { name, password: hashedPassword },
       );
-      res.send({
+      res.json({
         swallower,
         token: jwt.sign({ id: swallower.id }, SECRET, {
           expiresIn: '14d',
