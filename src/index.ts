@@ -47,9 +47,9 @@ for (const route of routes) {
   app[route.method](
     route.url,
     [...(route.middlewares ?? []), route.handler].map(
-      h => (req: any, res: any, next: () => void) => {
+      h => async (req: any, res: any, next: () => void) => {
         try {
-          h(req, res, next);
+          await h(req, res, next);
         } catch (e: any) {
           switch (true) {
             case e instanceof UnauthorizedError:

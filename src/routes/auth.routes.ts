@@ -11,10 +11,15 @@ export const routes: Route[] = [
     url: '/auth/login',
     handler: async (req, res) => {
       const { username, password } = req.body;
-      const swallower = await db.one(
-        'SELECT id, username, password FROM swallower WHERE username = $[username]',
-        { username },
-      );
+      let swallower;
+      try {
+        swallower = await db.one(
+          'SELECT id, username, password FROM swallower WHERE username = $[username]',
+          { username },
+        );
+      } catch (e) {
+        throw new UnauthorizedError();
+      }
       const isPasswordCorrect = await bcrypt.compare(
         password,
         swallower.password,
@@ -37,10 +42,16 @@ export const routes: Route[] = [
     handler: async (req, res) => {
       const { token } = req.body;
       const { id } = jwt.verify(token, SECRET) as { id: number };
-      const swallower = await db.one(
-        'SELECT id, username FROM swallower WHERE id = $[id]',
-        { id },
-      );
+      let swallower;
+      try {
+        swallower = await db.one(
+          'SELECT id, username FROM swallower WHERE id = $[id]',
+          { id },
+        );
+      } catch (e) {
+        throw new UnauthorizedError();
+      }
+
       res.send({
         ...swallower,
         token: jwt.sign({ id: swallower.id }, SECRET, {
