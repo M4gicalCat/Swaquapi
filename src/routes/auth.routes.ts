@@ -10,7 +10,7 @@ export const routes: Route[] = [
     method: 'get',
     url: '/auth/login',
     handler: async (req, res) => {
-      const { username, password } = req.body;
+      const { username, password } = req.query;
       let swallower;
       try {
         swallower = await db.one(
@@ -40,7 +40,7 @@ export const routes: Route[] = [
     method: 'get',
     url: '/auth/refresh',
     handler: async (req, res) => {
-      const { token } = req.body;
+      const { token } = req.query;
       const { id } = jwt.verify(token, SECRET) as { id: number };
       let swallower;
       try {

@@ -14,7 +14,7 @@ export class BadRequestError extends Error {
 }
 
 export const authMiddleware = (req: any, res: any, next: () => void) => {
-  const { token } = req.body;
+  const { token } = req.body || req.query;
   try {
     const { id } = jwt.verify(token, SECRET) as { id: number };
     req.id = id;
