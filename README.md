@@ -46,7 +46,7 @@ This is a simple API for the SWAQUA project. It is a REST API that allows you to
 
 #### /auth/login
 
-- **Method:** POST
+- **Method:** GET
 - **Description:** Login a user
 - **Body:**
     -  **username:** string
@@ -56,7 +56,7 @@ This is a simple API for the SWAQUA project. It is a REST API that allows you to
   - **swallower:** object
     - **id:** number
     - **username:** string
-    - **token:** string
+  - **token:** string
 - **Error:**
     -  **status:** 400
     -  **message:** string

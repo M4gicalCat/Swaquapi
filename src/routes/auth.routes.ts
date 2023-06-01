@@ -10,7 +10,11 @@ export const routes: Route[] = [
     method: 'get',
     url: '/auth/login',
     handler: async (req, res) => {
-      const { username, password } = req.query;
+      const { username = null, password = null } = {
+        ...req.query,
+        ...req.body,
+      };
+      console.log(username, password, req.query);
       let swallower;
       try {
         swallower = await db.one(
@@ -18,14 +22,14 @@ export const routes: Route[] = [
           { username },
         );
       } catch (e) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError('Wrong username');
       }
       const isPasswordCorrect = await bcrypt.compare(
         password,
         swallower.password,
       );
       if (!isPasswordCorrect) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError('Wrong password');
       }
       delete swallower.password;
       res.json({

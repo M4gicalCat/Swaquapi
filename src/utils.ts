@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import { SECRET } from './secret';
 
 export class UnauthorizedError extends Error {
-  constructor() {
-    super('Unauthorized');
+  constructor(message?: string) {
+    super(`Unauthorized${message ? `: ${message}` : ''}`);
   }
 }
 

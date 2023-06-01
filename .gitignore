@@ -6,3 +6,5 @@
 
 src/db.config.ts
 src/secret.ts
+
+/tests/
