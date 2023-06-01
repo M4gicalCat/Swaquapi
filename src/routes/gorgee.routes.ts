@@ -18,7 +18,7 @@ export const routes: Route[] = [
         `SELECT SUM(quantity) AS glouglou FROM gorgee WHERE swallower_id = $[id] AND EXTRACT(DAY FROM date) = EXTRACT(DAY FROM NOW())`,
         { id },
       );
-      res.json({ glouglou });
+      res.json({ glouglou: +glouglou });
     },
   },
 ];
