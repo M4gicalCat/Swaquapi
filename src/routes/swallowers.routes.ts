@@ -18,7 +18,7 @@ export const routes: Route[] = [
     middlewares: [authMiddleware],
     handler: async (req, res) => {
       const swallower = await db.one(getUserQuery, { id: req.id });
-      res.json(swallower);
+      res.json({ ...swallower, glouglou: +swallower.glouglou });
     },
   },
   {
