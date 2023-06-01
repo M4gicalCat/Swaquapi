@@ -26,11 +26,10 @@ export const authMiddleware = (req: any, res: any, next: () => void) => {
 };
 
 export const getUserQuery = `
-  SELECT s.id, s.username, SUM(g.quantity) AS glouglou
-  FROM swallower s
-  LEFT JOIN gorgee g ON s.id = g.swallower_id
-  WHERE 
-      s.id = $[id]
-      AND EXTRACT(DAY FROM g.date) = EXTRACT(DAY FROM NOW())
-  GROUP BY s.id, s.username
+    SELECT s.id, s.username, CASE WHEN SUM(g.quantity) IS NOT NULL THEN SUM(g.quantity) ELSE 0  END AS glouglou
+    FROM swallower s
+             LEFT JOIN gorgee g ON s.id = g.swallower_id AND EXTRACT(DAY FROM g.date) = EXTRACT(DAY FROM NOW())
+    WHERE
+        s.id = $[id]
+    GROUP BY s.id, s.username
 `;
